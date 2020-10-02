@@ -41,40 +41,40 @@ impl GameData {
         }
     }
 
-    pub fn update(data: &mut GameData, time: c_double) {
-        data.time_controller
-            .update_seconds(time, &data.actions, &mut data.state);
-        CollisionsController::handle_collisions(&mut data.state);
+    pub fn update(&mut self, time: c_double) {
+        self.time_controller
+            .update_seconds(time, &self.actions, &mut self.state);
+        CollisionsController::handle_collisions(&mut self.state);
     }
 
-    pub fn toggle_shoot(data: &mut GameData, b: c_int) {
+    pub fn toggle_shoot(&mut self, b: c_int) {
         //    let data = &mut DATA.lock().unwrap();
-        data.actions.shoot = int_to_bool(b);
+        self.actions.shoot = int_to_bool(b);
     }
 
-    pub fn toggle_boost(data: &mut GameData, b: c_int) {
+    pub fn toggle_boost(&mut self, b: c_int) {
         //    let data = &mut DATA.lock().unwrap();
-        data.actions.boost = int_to_bool(b);
+        self.actions.boost = int_to_bool(b);
     }
 
-    pub fn toggle_turn_left(data: &mut GameData, b: c_int) {
+    pub fn toggle_turn_left(&mut self, b: c_int) {
         //    let data = &mut DATA.lock().unwrap();
-        data.actions.rotate_left = int_to_bool(b);
+        self.actions.rotate_left = int_to_bool(b);
     }
 
-    pub fn toggle_turn_right(data: &mut GameData, b: c_int) {
+    pub fn toggle_turn_right(&mut self, b: c_int) {
         //    let data = &mut DATA.lock().unwrap();
-        data.actions.rotate_right = int_to_bool(b);
+        self.actions.rotate_right = int_to_bool(b);
     }
 
-    pub fn resize(width: c_double, height: c_double) -> GameData {
+    pub fn resize(&self, width: c_double, height: c_double) -> GameData {
         GameData::new(width, height)
     }
 
-    pub fn draw(data: &mut GameData) {
+    pub fn draw(&mut self) {
         use geometry::{Advance, Position};
         //    let data = &mut DATA.lock().unwrap();
-        let world = &data.state.world;
+        let world = &self.state.world;
 
         clear_screen();
         for particle in &world.particles {
@@ -90,7 +90,7 @@ impl GameData {
         }
 
         draw_player(world.player.x(), world.player.y(), world.player.direction());
-        draw_score(data.state.score as f64);
+        draw_score(self.state.score as f64);
     }
 }
 

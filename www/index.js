@@ -1,12 +1,11 @@
-import * as wasm from "wasm-game-of-life";
-
+import { GameData } from "wasm-game-of-life";
 
 // We create this here because it will be used from within `imports`
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext("2d");
 
 let module = {};
-const gamedata = GameData.new(1024.0, 600.0)
+const gamedata = GameData.new(1024.0, 600.0);
 
 // Returns an object containing resources that will be used later for drawing
 function resources() {
@@ -158,7 +157,7 @@ let drawAndUpdate = (timestamp) => {
     prevTimestamp = timestamp;
     requestAnimationFrame(drawAndUpdate);
 };
-
+console.log(gamedata)
 resize();
 drawAndUpdate();
 //});
